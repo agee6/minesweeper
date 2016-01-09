@@ -55,7 +55,7 @@ end
 class Board
 
   attr_reader :no_of_bombs, :size, :grid
-  def initialize (size = 9,no_of_bombs = 10)
+  def initialize (size = 9,no_of_bombs = 1)
     @size = size
     @grid = Array.new(size) {Array.new(size)}
     @no_of_bombs = no_of_bombs
@@ -80,7 +80,7 @@ class Board
     0.upto(size - 1) do |row|
       0.upto(size - 1) do |col|
         # if )
-        bombed = bomb_array.include?([row,col]
+        bombed = bomb_array.include?([row,col])
         @grid[row][col] = Tile.new([row,col], bombed)
         # else
         #   @grid[i][j] = Tile.new([i,j])
@@ -111,6 +111,7 @@ class Board
       return false if row.any? { |tile| !tile.revealed && !tile.bomb }
     end
     true
+    #Hopefully This Works
   end
 
   def update_board(pos)
@@ -128,7 +129,7 @@ class Board
     neighbor_arr = center_tile.neighbors
     # p neighbor_arr
     neighbor_arr.each do |neighbor|
-      update_board(neighbor) unless self[neighbord].revealed
+      update_board(neighbor) unless self[neighbor].revealed
       # if !@grid[neighbor[0]][neighbor[1]].revealed
         # p neighbor.display
       # end
